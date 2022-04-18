@@ -1,0 +1,2 @@
+class ItemCausesController < ApplicationController
+end
