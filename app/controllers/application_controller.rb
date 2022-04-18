@@ -1,8 +1,9 @@
 class ApplicationController < ActionController::API
   include ActionController::Cookies
   before_action :authorize_user
-
-  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
+  
+  rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+  rescue_from ActiveRecord::RecordInvalid, with: :render_invalid_response 
   
   # To Confirm Current User via Session
   def current_user
@@ -19,7 +20,12 @@ class ApplicationController < ActionController::API
   
   private
 
-  def render_not_found(e)
-      render json: {error: "#{e.model}NOT FOUND :("}, status: :not_found
-  end 
+  def render_not_found_response(error)
+    render json: {error:"#{error.model} not found"}, status: :not_found
+  end
+
+  def render_invalid_response 
+    render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+  end
+
 end
