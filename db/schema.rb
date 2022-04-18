@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2022_04_18_133730) do
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.integer "price"
-    t.string "type"
+    t.string "category"
     t.string "image"
     t.text "description"
     t.string "gender"
