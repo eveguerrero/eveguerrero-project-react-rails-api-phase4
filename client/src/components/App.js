@@ -7,6 +7,7 @@ import ItemForm from "./ItemForm";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [items, setItems] = useState([])
 
   useEffect(() => {
     // auto-login
@@ -14,7 +15,18 @@ function App() {
       if (r.ok) {
         r.json().then((user) => setUser(user));
       }
-    });
+    }
+    );
+    // fetch items
+    fetch("/items").then((r) => {
+      if (r.ok) {
+        r.json().then((items) => {
+        console.log(items)
+        setItems(items)
+        });
+      }
+    }
+    );
   }, []);
 
   if (!user) return <Login onLogin={setUser} />;
@@ -28,7 +40,7 @@ function App() {
             <ItemForm user={user} />
           </Route>
           <Route path="/">
-            <ItemList />
+            <ItemList items={items}/>
           </Route>
         </Switch>
       </main>
