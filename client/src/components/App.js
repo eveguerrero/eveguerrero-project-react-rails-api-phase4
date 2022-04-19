@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
-import Login from "../pages/Login";
-import ItemList from "../pages/ItemList";
-import NewItemForm from "../pages/NewItemForm";
+import Login from "./Login";
+import ItemList from "./ItemList";
+import ItemForm from "./ItemForm";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -25,7 +25,7 @@ function App() {
       <main>
         <Switch>
           <Route path="/new">
-            <NewItemForm user={user} />
+            <ItemForm user={user} />
           </Route>
           <Route path="/">
             <ItemList />
