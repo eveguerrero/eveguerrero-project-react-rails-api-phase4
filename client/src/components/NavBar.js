@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+// import Button from "@mui/material/Button";
 import { Button } from "../styles";
 
 function NavBar({ user, setUser }) {
@@ -18,8 +19,8 @@ function NavBar({ user, setUser }) {
         <Link to="/">Save the Amazon</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/new">
-          New Item
+        <Button as={Link} to="/login">
+          Login
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout

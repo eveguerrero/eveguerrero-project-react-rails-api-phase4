@@ -17,19 +17,23 @@ function App() {
     });
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  // if (!user) return <Login onLogin={setUser} />;
 
   return (
     <>
       <NavBar user={user} setUser={setUser} />
       <main>
         <Switch>
+          <Route path="/login">
+            <Login onLogin={setUser} />
+          </Route>
           <Route path="/new">
             <ItemForm user={user} />
           </Route>
           <Route path="/">
             <ItemList />
           </Route>
+
         </Switch>
       </main>
     </>
