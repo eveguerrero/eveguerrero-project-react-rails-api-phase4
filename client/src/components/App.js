@@ -39,8 +39,11 @@ function App() {
           <Route path="/login">
             <Login onLogin={setUser} />
           </Route>
-          <Route path="/new">
+          <Route exact path="/item-form">
             <ItemForm user={user} />
+          </Route>
+          <Route exact path="/item-form/:id/edit">
+            <ItemForm />
           </Route>
           <Route path="/">
             <ItemList items={items}/>
