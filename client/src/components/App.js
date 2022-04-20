@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import ItemList from "./ItemList";
 import ItemForm from "./ItemForm";
+import Home from "./Home";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -46,7 +47,8 @@ function App() {
             <ItemForm />
           </Route>
           <Route path="/">
-            <ItemList items={items}/>
+            <Home items={items} />
+            {/* <ItemList items={items}/> */}
           </Route>
 
         </Switch>
