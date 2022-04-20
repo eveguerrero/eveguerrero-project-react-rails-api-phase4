@@ -19,7 +19,7 @@ function NavBar({ user, setUser }) {
         <Link to="/">Save the Amazon</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/new">
+        <Button as={Link} to="/item-form">
           Add New Item
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>
