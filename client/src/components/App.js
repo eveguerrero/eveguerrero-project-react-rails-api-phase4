@@ -4,11 +4,12 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import ItemList from "./ItemList";
 import ItemForm from "./ItemForm";
-import RecipeList from "./RecipeList";
+import MollyItemForm from "./MollyItemForm";
 
 function App() {
   const [user, setUser] = useState(null);
   const [items, setItems] = useState([])
+  const [causes, setCauses] = useState([])
 
   useEffect(() => {
     // auto-login
@@ -23,7 +24,19 @@ function App() {
       if (r.ok) {
         r.json().then((items) => {
         console.log(items)
+        console.log(items[1])
         setItems(items)
+        });
+      }
+    }
+    );
+
+    // fetch causes
+    fetch("/causes").then((r) => {
+      if (r.ok) {
+        r.json().then((causes) => {
+        console.log(causes)
+        setCauses(causes)
         });
       }
     }
@@ -57,6 +70,10 @@ function App() {
             {/* <Route path="/new">
               <NewRecipe user={user} />
             </Route> */}
+            <Route path="/itemform">
+              <MollyItemForm item={items[1]} causes={causes}/> 
+              {/* <RecipeList /> */}
+            </Route>
             <Route path="/">
               <ItemList items={items}/> 
               {/* <RecipeList /> */}
