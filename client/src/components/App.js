@@ -4,6 +4,7 @@ import NavBar from "./NavBar";
 import Login from "./Login";
 import ItemList from "./ItemList";
 import ItemForm from "./ItemForm";
+import RecipeList from "./RecipeList";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -29,27 +30,42 @@ function App() {
     );
   }, []);
 
-  // if (!user) return <Login onLogin={setUser} />;
+  if (!user) return <Login onLogin={setUser} />;
 
   return (
-    <>
-      <NavBar user={user} setUser={setUser} />
-      <main>
-        <Switch>
-          <Route path="/login">
-            <Login onLogin={setUser} />
-          </Route>
-          <Route path="/new">
-            <ItemForm user={user} />
-          </Route>
-          <Route path="/">
-            <ItemList items={items}/>
-          </Route>
+    // <>
+    //   {/* <NavBar user={user} setUser={setUser} />
+    //   <main>
+    //     <Switch>
+    //       <Route path="/login">
+    //         <Login onLogin={setUser} />
+    //       </Route>
+    //       <Route path="/new">
+    //         <ItemForm user={user} />
+    //       </Route>
+    //       <Route path="/">
+    //         <ItemList items={items}/>
+    //       </Route>
 
-        </Switch>
-      </main>
-    </>
+    //     </Switch>
+    //   </main>
+    // </> */}
+        <>
+        <NavBar user={user} setUser={setUser} />
+        <main>
+          <Switch>
+            {/* <Route path="/new">
+              <NewRecipe user={user} />
+            </Route> */}
+            <Route path="/">
+              <ItemList items={items}/> 
+              {/* <RecipeList /> */}
+            </Route>
+          </Switch>
+        </main>
+      </>
   );
 }
 
 export default App;
+
