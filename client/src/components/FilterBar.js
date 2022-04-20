@@ -5,6 +5,10 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControl from '@mui/material/FormControl';
 import FormLabel from '@mui/material/FormLabel';
+import InputLabel from '@mui/material/InputLabel';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
+import FormGroup from '@mui/material/FormGroup';
 
 function FilterBar() {
 
@@ -24,13 +28,13 @@ function FilterBar() {
             </FormControl>
 
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Item Category</InputLabel>
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
                         id="demo-simple-select"
-                        value={category}
+                        // value={category}
                         label="Age"
-                        onChange={handleChange}
+                        // onChange={handleChange}
                     >
                     <MenuItem value={"Bags"}>Bags</MenuItem>
                     <MenuItem value={"Shoes"}>Shoes</MenuItem>
@@ -40,6 +44,7 @@ function FilterBar() {
                 </FormControl>
 
             <FormGroup>
+                <FormLabel id="checkbox-group-label">Causes</FormLabel>
                 <FormControlLabel control={<Checkbox />} label="Vegan" />
                 <FormControlLabel control={<Checkbox />} label="Low carbon footprint" />
                 <FormControlLabel control={<Checkbox />} label="Made with recycled materials" />
