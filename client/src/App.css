@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.item_page {
+  text-align: center;
+    align-items: center;
+    color:#61dafb;
+}
+
+

@@ -5,8 +5,31 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
+import { Link, useParams } from "react-router-dom";
+import {useState, useEffect} from 'react'
+
 
 export default function Item({ itemToDisplay }) {
+
+  // const [item, setItem] = useState([])
+
+  // function LoadItem(id) {
+  //   fetch(`http://localhost:3000/items/${id}`)
+  //     .then(r => r.json())
+  //     .then(item => {
+  //         console.log(item)
+  //       setItem(item);
+  //     })
+  // }
+
+  // const data = useParams();
+  
+  // useEffect(() => {
+  //   LoadItem(data.id);
+  // }, [data]);
+ 
+    const id = itemToDisplay.id
+    
   return (
     <ImageListItem key={itemToDisplay.id}>
     <img
@@ -20,12 +43,18 @@ export default function Item({ itemToDisplay }) {
       subtitle={`$${itemToDisplay.price}`}
     //   position="below"
       actionIcon={
-        <IconButton
+        // component={Link} to={`/items/${id}`}
+         <Link to={`/items/${id}`}>
+        <IconButton 
+        
           sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
           aria-label={`info about ${itemToDisplay.name}`}
+          
+
         >
           <InfoIcon />
         </IconButton>
+         </Link>
       }
     />
   </ImageListItem>

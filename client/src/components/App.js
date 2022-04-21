@@ -6,8 +6,12 @@ import ItemList from "./ItemList";
 import Home from "./Home";
 import ItemForm from "./ItemForm";
 import MollyItemForm from "./MollyItemForm";
+import ItemPage from "./ItemPage";
+
+
 import { isEmpty, difference} from "lodash";
 import SellerPage from "./SellerPage";
+
 
 function App() {
 
@@ -98,6 +102,9 @@ function App() {
             <Route path="/itemform">
               <MollyItemForm item={item} causes={causes}/> 
             </Route>
+            <Route path="/items/:id" >
+              <ItemPage />
+            </Route>
             <Route exact path="/">
               <Home 
                 itemsToDisplay={itemsToDisplay} 
@@ -123,6 +130,7 @@ function App() {
                 />
             </Route>
           </Switch>
+          
         </main>
       </>
   );
