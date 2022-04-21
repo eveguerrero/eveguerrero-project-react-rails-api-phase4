@@ -1,7 +1,24 @@
-import React from 'react'
+import React from "react";
+import NavBar from "./NavBar";
+import FilterBar from "./FilterBar";
+import ItemList from "./ItemList";
+import Grid from '@mui/material/Grid';
 
-function SellerPage (){
+function SellerPage({sellerItems, onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses}) {
 
-}
+    return (
+        <div>
+            {/* <NavBar /> */}
+            <Grid container spacing={2}>
+                <Grid item xs={2} md={2}>
+                    <FilterBar onCategoryChange={onCategoryChange} selectedCategory={selectedCategory} onGenderChange={onGenderChange} selectedGender={selectedGender} setSelectedCauses={setSelectedCauses}/>
+                </Grid>
+                <Grid item xs={10} md={10}>
+                    <ItemList itemsToDisplay={sellerItems}/>
+                </Grid>
+            </Grid>
+        </div>
+    )
+};
 
 export default SellerPage;
