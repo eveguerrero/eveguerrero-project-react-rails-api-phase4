@@ -120,6 +120,7 @@ function App() {
                 selectedGender={selectedGender} 
                 onGenderChange={onGenderChange}
                 setSelectedCauses={setSelectedCauses} 
+                causes={causes}
                 />
             </Route>
           </Switch>

@@ -1,7 +1,7 @@
 puts "Seeding causes..."
 
 Cause.create(name: "Vegan", description: "Fashion item that does not contain any animal materials and for which no animal by-products were used during the entire production process" )
-Cause.create(name: "Low carbon footpring", description: "Company that makes a demonstrable impact on lowering the amount of greenhouse gas emitted from all of its activities" )
+Cause.create(name: "Low carbon footprint", description: "Company that makes a demonstrable impact on lowering the amount of greenhouse gas emitted from all of its activities" )
 Cause.create(name: "Made with recycled materials", description: "Company that produces fashion items made from previously used materials" )
 Cause.create(name: "Made in the USA", description: "Fashion item manufactured in the USA" )
 Cause.create(name: "Fair labor practices", description: "Company that pays their employees 20% over the minimum wage, provides time-and-a-half overtime pay, prohibits the employment of minors, provides parental maternity leave of a minimum of three months, shares the cost of healthcare with its employees, and offers a minimum of 14 days of PTOs per year" )
