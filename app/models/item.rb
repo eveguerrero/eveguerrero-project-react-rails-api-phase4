@@ -4,4 +4,5 @@ class Item < ApplicationRecord
     belongs_to :user
 
     validates :name, :price, :category, :image, :description, :gender, :user_id, :condition, presence: true
+
 end
