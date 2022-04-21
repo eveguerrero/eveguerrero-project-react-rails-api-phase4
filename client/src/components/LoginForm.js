@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { Button, Error, Input, FormField, Label } from "../styles";
+import { Link, useHistory } from "react-router-dom";
+import { Redirect, Route } from "react-router-dom";
 
 function LoginForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const history = useHistory();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +23,13 @@ function LoginForm({ onLogin }) {
     }).then((r) => {
       setIsLoading(false);
       if (r.ok) {
-        r.json().then((user) => onLogin(user));
+        r.json().then((user) => {
+          onLogin(user);
+        console.log("logged in");
+        console.log(user.seller);
+        // if (user.seller) return <Link to="/" exact/>;
+        // else return <Link to="/" exact/> });
+        history.push("/")})
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
@@ -27,7 +37,7 @@ function LoginForm({ onLogin }) {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} >
       <FormField>
         <Label htmlFor="username">Username</Label>
         <Input
