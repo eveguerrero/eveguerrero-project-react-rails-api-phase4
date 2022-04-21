@@ -3,12 +3,19 @@ import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import ItemList from "./ItemList";
+import Home from "./Home";
 import ItemForm from "./ItemForm";
 import RecipeList from "./RecipeList";
+import { isEqual, isEmpty} from "lodash";
 
 function App() {
   const [user, setUser] = useState(null);
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedGender, setSelectedGender] = useState("")
+  const [selectedCauses, setSelectedCauses] = useState([])
+
+  // console.log(selectedCauses)
 
   useEffect(() => {
     // auto-login
@@ -31,6 +38,19 @@ function App() {
   }, []);
 
   if (!user) return <Login onLogin={setUser} />;
+
+  function onCategoryChange(category) {
+    setSelectedCategory(category)
+  }
+
+  function onGenderChange(gender) {
+    setSelectedGender(gender)
+  }
+
+  const itemsToDisplay = items
+  .filter(item => selectedCategory === "" || item.category === selectedCategory)
+  .filter(item => selectedGender === "" || item.gender === selectedGender)
+  .filter(item => isEmpty(selectedCauses) || isEqual(item.causes.map(cause => cause.name), selectedCauses))
 
   return (
     // <>
@@ -58,7 +78,14 @@ function App() {
               <NewRecipe user={user} />
             </Route> */}
             <Route path="/">
-              <ItemList items={items}/> 
+              <Home 
+                itemsToDisplay={itemsToDisplay} 
+                onCategoryChange={onCategoryChange} 
+                selectedCategory={selectedCategory} 
+                selectedGender={selectedGender} 
+                onGenderChange={onGenderChange}
+                setSelectedCauses={setSelectedCauses}
+              /> 
               {/* <RecipeList /> */}
             </Route>
           </Switch>
