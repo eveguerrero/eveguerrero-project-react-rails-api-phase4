@@ -16,10 +16,10 @@ function NavBar({ user, setUser }) {
   return (
     <Wrapper>
       <Logo>
-        <Link to="/">Save the Amazon</Link>
+        <Link to="/" exact>Save the Amazon</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/login">
+        <Button as={Link} to="/login" exact>
           Login
         </Button>
         <Button variant="outline" onClick={handleLogoutClick}>

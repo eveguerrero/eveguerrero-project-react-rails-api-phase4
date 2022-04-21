@@ -4,21 +4,19 @@ import FilterBar from "./FilterBar";
 import ItemList from "./ItemList";
 import Grid from '@mui/material/Grid';
 
-function Home({items}) {
+function Home({itemsToDisplay, onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses}) {
 
     return (
         <div>
             {/* <NavBar /> */}
             <Grid container spacing={2}>
                 <Grid item xs={2} md={2}>
-                    <FilterBar />
+                    <FilterBar onCategoryChange={onCategoryChange} selectedCategory={selectedCategory} onGenderChange={onGenderChange} selectedGender={selectedGender} setSelectedCauses={setSelectedCauses}/>
                 </Grid>
                 <Grid item xs={10} md={10}>
-                    <ItemList items={items}/>
+                    <ItemList itemsToDisplay={itemsToDisplay}/>
                 </Grid>
             </Grid>
-            {/* <FilterBar />
-            <ItemList items={items}/> */}
         </div>
     )
 };

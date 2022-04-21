@@ -3,13 +3,21 @@ import { Switch, Route } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import ItemList from "./ItemList";
+import Home from "./Home";
 import ItemForm from "./ItemForm";
 import MollyItemForm from "./MollyItemForm";
+import { isEqual, isEmpty} from "lodash";
 
 function App() {
+
   const [user, setUser] = useState(null);
-  const [items, setItems] = useState([])
+  const [items, setItems] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("All")
+  const [selectedGender, setSelectedGender] = useState("")
+  const [selectedCauses, setSelectedCauses] = useState([])
   const [causes, setCauses] = useState([])
+
+  // console.log(selectedCauses)
 
   useEffect(() => {
     // auto-login
@@ -43,7 +51,20 @@ function App() {
     );
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  // if (!user) return <Login onLogin={setUser} />;
+
+  function onCategoryChange(category) {
+    setSelectedCategory(category)
+  }
+
+  function onGenderChange(gender) {
+    setSelectedGender(gender)
+  }
+
+  const itemsToDisplay = items
+  .filter(item => selectedCategory === "All" || item.category === selectedCategory)
+  .filter(item => selectedGender === "" || item.gender === selectedGender)
+  .filter(item => isEmpty(selectedCauses) || isEqual(item.causes.map(cause => cause.name), selectedCauses))
 
   return (
     // <>
@@ -67,16 +88,21 @@ function App() {
         <NavBar user={user} setUser={setUser} />
         <main>
           <Switch>
-            {/* <Route path="/new">
-              <NewRecipe user={user} />
-            </Route> */}
             <Route path="/itemform">
               <MollyItemForm item={items[1]} causes={causes}/> 
-              {/* <RecipeList /> */}
             </Route>
-            <Route path="/">
-              <ItemList items={items}/> 
-              {/* <RecipeList /> */}
+            <Route exact path="/">
+              <Home 
+                itemsToDisplay={itemsToDisplay} 
+                onCategoryChange={onCategoryChange} 
+                selectedCategory={selectedCategory} 
+                selectedGender={selectedGender} 
+                onGenderChange={onGenderChange}
+                setSelectedCauses={setSelectedCauses}
+              /> 
+            </Route>
+            <Route exact path="/login">
+              <Login onLogin={setUser} />
             </Route>
           </Switch>
         </main>
