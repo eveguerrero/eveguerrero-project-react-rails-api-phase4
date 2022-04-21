@@ -6,23 +6,23 @@ import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 
-export default function Item({ item }) {
+export default function Item({ itemToDisplay }) {
   return (
-    <ImageListItem key={item.id}>
+    <ImageListItem key={itemToDisplay.id}>
     <img
-      src={`${item.image}?w=248&fit=crop&auto=format`}
-      srcSet={`${item.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
-      alt={item.name}
+      src={`${itemToDisplay.image}?w=248&fit=crop&auto=format`}
+      srcSet={`${itemToDisplay.image}?w=248&fit=crop&auto=format&dpr=2 2x`}
+      alt={itemToDisplay.name}
       loading="lazy"
     />
     <ImageListItemBar
-      title={item.name}
-      subtitle={`$${item.price}`}
+      title={itemToDisplay.name}
+      subtitle={`$${itemToDisplay.price}`}
     //   position="below"
       actionIcon={
         <IconButton
           sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-          aria-label={`info about ${item.name}`}
+          aria-label={`info about ${itemToDisplay.name}`}
         >
           <InfoIcon />
         </IconButton>
