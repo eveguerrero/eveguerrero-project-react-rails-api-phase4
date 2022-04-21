@@ -27,9 +27,10 @@ function LoginForm({ onLogin }) {
           onLogin(user);
         console.log("logged in");
         console.log(user.seller);
-        // if (user.seller) return <Link to="/" exact/>;
-        // else return <Link to="/" exact/> });
-        history.push("/")})
+        // history.push("/")
+        if (user.seller) return history.push("/sellerpage")
+        else return history.push("/")
+      })
       } else {
         r.json().then((err) => setErrors(err.errors));
       }

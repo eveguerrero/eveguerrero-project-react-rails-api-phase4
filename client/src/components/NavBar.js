@@ -1,14 +1,18 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 // import Button from "@mui/material/Button";
 import { Button } from "../styles";
 
 function NavBar({ user, setUser }) {
+
+  const history = useHistory();
+  
   function handleLogoutClick() {
     fetch("/logout", { method: "DELETE" }).then((r) => {
       if (r.ok) {
         setUser(null);
+        history.push("/")
       }
     });
   }
@@ -19,12 +23,45 @@ function NavBar({ user, setUser }) {
         <Link to="/" exact>Save the Amazon</Link>
       </Logo>
       <Nav>
-        {!user ? <Button as={Link} to="/login" exact>
+
+
+
+{/* {if (!user) {
+          <Button as={Link} to="/login" exact>Login</Button>
+        } else if (user && user.seller) { 
+          <Button as={Link} to="/item-form">
+            Add New Item
+          </Button>
+          <Button variant="outline" onClick={handleLogoutClick}>
+          Logout
+          </Button>
+        } else {
+          <Button variant="outline" onClick={handleLogoutClick}>
+            Logout
+          </Button>
+        }} */}
+
+        {/* {!user ? <Button as={Link} to="/login" exact>
           Login
         </Button> :
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout
-        </Button>}
+        </Button>} */}
+
+
+        {!user ? 
+        <Button as={Link} to="/login" exact>Login</Button> 
+        :
+        (user && user.seller) ?
+        <>
+        <Button as={Link} to="/itemform">Add New Item</Button>
+          <Button variant="outline" onClick={handleLogoutClick}>
+          Logout
+          </Button>
+        </>
+        :  
+        <Button variant="outline" onClick={handleLogoutClick}>Logout</Button>
+        }
       </Nav>
     </Wrapper>
   );

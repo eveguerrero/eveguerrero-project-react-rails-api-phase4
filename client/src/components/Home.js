@@ -6,6 +6,7 @@ import Grid from '@mui/material/Grid';
 
 function Home({itemsToDisplay, onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses, causes}) {
 
+
     return (
         <div>
             {/* <NavBar /> */}
@@ -24,6 +25,7 @@ function Home({itemsToDisplay, onCategoryChange, selectedCategory, onGenderChang
                     <ItemList itemsToDisplay={itemsToDisplay}/>
                 </Grid>
             </Grid>
+            
         </div>
     )
 };
