@@ -4,7 +4,7 @@ import FilterBar from "./FilterBar";
 import SellerItemList from "./SellerItemList";
 import Grid from '@mui/material/Grid';
 
-function SellerPage({sellerItems, onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses, causes}) {
+function SellerPage({sellerItems, onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses, causes, setItemToEdit}) {
 
     return (
         <div>
@@ -22,7 +22,7 @@ function SellerPage({sellerItems, onCategoryChange, selectedCategory, onGenderCh
 
                 </Grid>
                 <Grid item xs={10} md={10}>
-                    <SellerItemList sellerItems={sellerItems}/>
+                    <SellerItemList sellerItems={sellerItems} causes={causes} setItemToEdit={setItemToEdit} />
                 </Grid>
             </Grid>
         </div>

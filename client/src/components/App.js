@@ -21,6 +21,7 @@ function App() {
   const [selectedGender, setSelectedGender] = useState("")
   const [selectedCauses, setSelectedCauses] = useState([])
   const [causes, setCauses] = useState([])
+  const [itemToEdit, setItemToEdit] = useState({})
 
   // console.log(selectedCauses)
 
@@ -100,11 +101,14 @@ function App() {
         <main>
           <Switch>
             <Route path="/itemform">
-              <MollyItemForm item={item} causes={causes}/> 
+              <MollyItemForm item={itemToEdit} setItemToEdit={setItemToEdit} causes={causes}/> 
             </Route>
             <Route path="/items/:id" >
               <ItemPage />
             </Route>
+            {/* <Route path="/sellerpage/edititem" >
+              <MollyItemForm item={itemToDisplay} causes={causes}/>
+            </Route> */}
             <Route exact path="/">
               <Home 
                 itemsToDisplay={itemsToDisplay} 
@@ -127,6 +131,7 @@ function App() {
                 selectedGender={selectedGender} 
                 onGenderChange={onGenderChange}
                 setSelectedCauses={setSelectedCauses} 
+                setItemToEdit={setItemToEdit}
                 causes={causes}
                 />
             </Route>

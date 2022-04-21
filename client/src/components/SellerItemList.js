@@ -7,14 +7,14 @@ import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
 import SellerItem from './SellerItem';
 
-export default function SellerItemList({sellerItems}) {
+export default function SellerItemList({sellerItems, setItemToEdit}) {
   return (
     <ImageList sx={{ width: 1000, height: 800 }} cols={4}>
       <ImageListItem key="Subheader" cols={4}>
         <ListSubheader component="div">Ethical Clothing Items</ListSubheader>
       </ImageListItem>
       {sellerItems.map((itemToDisplay) => (
-        <SellerItem key={itemToDisplay.id} itemToDisplay={itemToDisplay}></SellerItem>
+        <SellerItem key={itemToDisplay.id} itemToDisplay={itemToDisplay} setItemToEdit={setItemToEdit}></SellerItem>
       ))}
     </ImageList>
   );
