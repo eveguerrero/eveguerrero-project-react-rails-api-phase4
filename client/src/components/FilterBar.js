@@ -71,6 +71,7 @@ function FilterBar({ onCategoryChange, selectedCategory, onGenderChange, selecte
                         onChange={handleCategoryChange}
                         value={selectedCategory}
                     >
+                    <MenuItem value="All">All</MenuItem>
                     <MenuItem value="Bags">Bags</MenuItem>
                     <MenuItem value="Shoes">Shoes</MenuItem>
                     <MenuItem value="Pants">Pants</MenuItem>

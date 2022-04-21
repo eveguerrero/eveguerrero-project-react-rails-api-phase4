@@ -11,7 +11,7 @@ import { isEqual, isEmpty} from "lodash";
 function App() {
   const [user, setUser] = useState(null);
   const [items, setItems] = useState([]);
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [selectedCategory, setSelectedCategory] = useState("All")
   const [selectedGender, setSelectedGender] = useState("")
   const [selectedCauses, setSelectedCauses] = useState([])
 
@@ -37,7 +37,7 @@ function App() {
     );
   }, []);
 
-  if (!user) return <Login onLogin={setUser} />;
+  // if (!user) return <Login onLogin={setUser} />;
 
   function onCategoryChange(category) {
     setSelectedCategory(category)
@@ -48,7 +48,7 @@ function App() {
   }
 
   const itemsToDisplay = items
-  .filter(item => selectedCategory === "" || item.category === selectedCategory)
+  .filter(item => selectedCategory === "All" || item.category === selectedCategory)
   .filter(item => selectedGender === "" || item.gender === selectedGender)
   .filter(item => isEmpty(selectedCauses) || isEqual(item.causes.map(cause => cause.name), selectedCauses))
 
@@ -77,7 +77,7 @@ function App() {
             {/* <Route path="/new">
               <NewRecipe user={user} />
             </Route> */}
-            <Route path="/">
+            <Route exact path="/">
               <Home 
                 itemsToDisplay={itemsToDisplay} 
                 onCategoryChange={onCategoryChange} 
@@ -87,6 +87,9 @@ function App() {
                 setSelectedCauses={setSelectedCauses}
               /> 
               {/* <RecipeList /> */}
+            </Route>
+            <Route exact path="/login">
+              <Login onLogin={setUser} />
             </Route>
           </Switch>
         </main>
