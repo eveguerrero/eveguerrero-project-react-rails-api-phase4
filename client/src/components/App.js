@@ -5,15 +5,17 @@ import Login from "./Login";
 import ItemList from "./ItemList";
 import Home from "./Home";
 import ItemForm from "./ItemForm";
-import RecipeList from "./RecipeList";
+import MollyItemForm from "./MollyItemForm";
 import { isEqual, isEmpty} from "lodash";
 
 function App() {
+
   const [user, setUser] = useState(null);
   const [items, setItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All")
   const [selectedGender, setSelectedGender] = useState("")
   const [selectedCauses, setSelectedCauses] = useState([])
+  const [causes, setCauses] = useState([])
 
   // console.log(selectedCauses)
 
@@ -30,7 +32,19 @@ function App() {
       if (r.ok) {
         r.json().then((items) => {
         console.log(items)
+        console.log(items[1])
         setItems(items)
+        });
+      }
+    }
+    );
+
+    // fetch causes
+    fetch("/causes").then((r) => {
+      if (r.ok) {
+        r.json().then((causes) => {
+        console.log(causes)
+        setCauses(causes)
         });
       }
     }
@@ -74,9 +88,9 @@ function App() {
         <NavBar user={user} setUser={setUser} />
         <main>
           <Switch>
-            {/* <Route path="/new">
-              <NewRecipe user={user} />
-            </Route> */}
+            <Route path="/itemform">
+              <MollyItemForm item={items[1]} causes={causes}/> 
+            </Route>
             <Route exact path="/">
               <Home 
                 itemsToDisplay={itemsToDisplay} 
@@ -86,7 +100,6 @@ function App() {
                 onGenderChange={onGenderChange}
                 setSelectedCauses={setSelectedCauses}
               /> 
-              {/* <RecipeList /> */}
             </Route>
             <Route exact path="/login">
               <Login onLogin={setUser} />
