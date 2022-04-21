@@ -19,12 +19,12 @@ function NavBar({ user, setUser }) {
         <Link to="/" exact>Save the Amazon</Link>
       </Logo>
       <Nav>
-        <Button as={Link} to="/login" exact>
+        {!user ? <Button as={Link} to="/login" exact>
           Login
-        </Button>
+        </Button> :
         <Button variant="outline" onClick={handleLogoutClick}>
           Logout
-        </Button>
+        </Button>}
       </Nav>
     </Wrapper>
   );
