@@ -6,7 +6,7 @@ import ItemList from "./ItemList";
 import Home from "./Home";
 import ItemForm from "./ItemForm";
 import MollyItemForm from "./MollyItemForm";
-import { isEqual, isEmpty} from "lodash";
+import { isEmpty, difference} from "lodash";
 
 function App() {
 
@@ -61,11 +61,15 @@ function App() {
     setSelectedGender(gender)
   }
 
+  // const itemsToDisplay = items
+  // .filter(item => selectedCategory === "All" || item.category === selectedCategory)
+  // .filter(item => selectedGender === "" || item.gender === selectedGender)
+  // .filter(item => isEmpty(selectedCauses) || includes(selectedCauses, "Vegan"))
+  // .filter(item => isEmpty(selectedCauses) || isEqual(item.causes.map(cause => cause.name), selectedCauses))
   const itemsToDisplay = items
   .filter(item => selectedCategory === "All" || item.category === selectedCategory)
   .filter(item => selectedGender === "" || item.gender === selectedGender)
-  .filter(item => isEmpty(selectedCauses) || isEqual(item.causes.map(cause => cause.name), selectedCauses))
-
+  .filter(item => isEmpty(selectedCauses) || isEmpty(difference(selectedCauses, item.causes.map(cause => cause.name))))
   return (
     // <>
     //   {/* <NavBar user={user} setUser={setUser} />
@@ -99,6 +103,7 @@ function App() {
                 selectedGender={selectedGender} 
                 onGenderChange={onGenderChange}
                 setSelectedCauses={setSelectedCauses}
+                causes={causes}
               /> 
             </Route>
             <Route exact path="/login">
