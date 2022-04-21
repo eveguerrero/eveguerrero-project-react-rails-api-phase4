@@ -4,6 +4,7 @@ import FilterBar from "./FilterBar";
 import ItemList from "./ItemList";
 import Grid from '@mui/material/Grid';
 
+
 function Home({itemsToDisplay, onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses}) {
 
     return (
@@ -17,6 +18,7 @@ function Home({itemsToDisplay, onCategoryChange, selectedCategory, onGenderChang
                     <ItemList itemsToDisplay={itemsToDisplay}/>
                 </Grid>
             </Grid>
+            
         </div>
     )
 };
