@@ -9,8 +9,10 @@ import InputLabel from '@mui/material/InputLabel';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import FormGroup from '@mui/material/FormGroup';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 
-function FilterBar({ onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses}) {
+function FilterBar({ onCategoryChange, selectedCategory, onGenderChange, selectedGender, setSelectedCauses, causes}) {
 
     function handleCategoryChange(event) {
         onCategoryChange(event.target.value)
@@ -71,27 +73,25 @@ function FilterBar({ onCategoryChange, selectedCategory, onGenderChange, selecte
                         onChange={handleCategoryChange}
                         value={selectedCategory}
                     >
-                    <MenuItem value="All">All</MenuItem>
-                    <MenuItem value="Bags">Bags</MenuItem>
-                    <MenuItem value="Shoes">Shoes</MenuItem>
-                    <MenuItem value="Pants">Pants</MenuItem>
-                    <MenuItem value="Tops">Tops</MenuItem>
-                </Select>
-                </FormControl>
+                        <MenuItem value="All">All</MenuItem>
+                        <MenuItem value="Bags">Bags</MenuItem>
+                        <MenuItem value="Shoes">Shoes</MenuItem>
+                        <MenuItem value="Pants">Pants</MenuItem>
+                        <MenuItem value="Tops">Tops</MenuItem>
+                    </Select>
+            </FormControl>
 
             <FormGroup>
                 <FormLabel id="checkbox-group-label">Causes</FormLabel>
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Vegan")}/>} label="Vegan" />
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Low carbon footpring")}/>} label="Low carbon footprint" />
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Made with recycled materials")}/>} label="Made with recycled materials" />
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Made in the USA")}/>} label="Made in the USA" />
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Fair labor practices")}/>} label="Fair labor practices" />
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Charitable donations")}/>} label="Charitable donations" />
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Women-owned")}/>} label="Women-owned" />
-                <FormControlLabel control={<Checkbox onChange={() => onCauseToggle("Minority-owned")}/>} label="Minority-owned" />
-                <div>
-      </div>
+                {causes.map((cause) => (
+                    <FormControlLabel control={<Checkbox onChange={() => onCauseToggle(cause.name)}/>} label={cause.name} />
+                ))}
             </FormGroup>
+            {/* <ToggleButtonGroup id="causes" color="primary"  >
+                {causes.map((cause) => (
+                    <ToggleButton key={cause.id} onChange={() => onCauseToggle(cause.name)}>{cause.name}</ToggleButton>
+                ))}
+            </ToggleButtonGroup> */}
         </div>
     )
 };
