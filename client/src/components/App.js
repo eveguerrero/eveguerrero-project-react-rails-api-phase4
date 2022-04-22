@@ -59,6 +59,13 @@ function App() {
     );
   }, []);
 
+  function onDeleteItem(deletedItem) {
+    const updatedItems = items.filter((item)=>item.id!==deletedItem.id)
+    setItems(updatedItems)
+    setItemToEdit({})
+    history.push("/sellerpage")
+  }
+
   // if (!user) return <Login onLogin={setUser} />;
   function onSubmitItem( itemToSubmit, newCauses=[], delCauses=[] ) {
     if (itemToSubmit.id) {
@@ -148,11 +155,18 @@ function App() {
     //   </main>
     // </> */}
         <>
-        <NavBar user={user} setUser={setUser} />
+        <NavBar user={user} setUser={setUser} setItemToEdit={setItemToEdit} />
         <main>
           <Switch>
             <Route path="/itemform">
-              <MollyItemForm item={itemToEdit} setItemToEdit={setItemToEdit} errors={errors} causes={causes} onSubmitItem={onSubmitItem}/> 
+              <MollyItemForm 
+                item={itemToEdit} 
+                setItemToEdit={setItemToEdit} 
+                errors={errors} 
+                causes={causes} 
+                onDeleteItem={onDeleteItem} 
+                onSubmitItem={onSubmitItem}
+                /> 
             </Route>
             <Route path="/items/:id" >
               <ItemPage />
