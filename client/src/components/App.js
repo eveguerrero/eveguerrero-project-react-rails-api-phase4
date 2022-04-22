@@ -19,7 +19,7 @@ function App() {
   const [user, setUser] = useState(null);
   const [items, setItems] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All")
-  const [selectedGender, setSelectedGender] = useState("")
+  const [selectedGender, setSelectedGender] = useState("All")
   const [selectedCauses, setSelectedCauses] = useState([])
   const [causes, setCauses] = useState([])
   const [itemToEdit, setItemToEdit] = useState({})
@@ -118,7 +118,7 @@ function App() {
 
   const itemsToDisplay = items
   .filter(item => selectedCategory === "All" || item.category === selectedCategory)
-  .filter(item => selectedGender === "" || item.gender === selectedGender)
+  .filter(item => selectedGender === "All" || item.gender === selectedGender)
   .filter(item => isEmpty(selectedCauses) || isEmpty(difference(selectedCauses, item.causes.map(cause => cause.name))))
 
   const item = {id: 2, name: 'Mid-top boot - black', price: 75, category: 'Shoes', image: "https://cdn.shopify.com/s/files/1/0752/4221/products/KPGM027BLK_p_1200x.jpg?v=1512594013", description: "these mid-tops feature a non-slip rubber sole and a synthetic nubuck upper that is both water and oil resistant. The custom insole provides extra heel and arch support,", gender: "Men", condition: "new", causes: [{id: 1, name: 'Vegan', description: 'Fashion item that does not contain any animal mate…ts were used during the entire production process'}, {id: 3, name: 'Made with recycled materials', description: 'Company that produces fashion items made from previously used materials'}, {id: 4, name: 'Made in the USA', description: 'Fashion item manufactured in the USA'}, {id: 5, name: 'Fair labor practices', description: 'Company that pays their employees 20% over the min… and offers a minimum of 14 days of PTOs per year'}, {id: 6, name: 'Charitable donations', description: 'Company that donates part of its profits and/or pr…o charitable causes as part of its business model'}, {id: 7, name: 'Women-owned', description: 'Company that is at least 70% owned by women'}, {id: 8, name: 'Minority-owned', description: 'Company that is at least 70% owned by African-Amer…, Hispanic-Latin American, Native American people'}]}

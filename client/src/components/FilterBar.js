@@ -46,7 +46,7 @@ function FilterBar({ onCategoryChange, selectedCategory, onGenderChange, selecte
                 </RadioGroup>
             </FormControl> */}
             <form>
-                <p>Gender</p>
+            <InputLabel id="select-label">Gender</InputLabel>
                 <div>
                     <input
                     type="radio"
@@ -63,9 +63,19 @@ function FilterBar({ onCategoryChange, selectedCategory, onGenderChange, selecte
                     onChange={handleGenderChange}
                     /> Women
                 </div>
+                <div>
+                    <input
+                    type="radio"
+                    value="All"
+                    checked={selectedGender === 'All'}
+                    onChange={handleGenderChange}
+                    /> All
+                </div>
             </form>
+            <br></br>
+            <br></br>
             <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <InputLabel id="select-label">Category</InputLabel>
                     <Select
                         labelId="select-label"
                         id="select"
@@ -80,7 +90,8 @@ function FilterBar({ onCategoryChange, selectedCategory, onGenderChange, selecte
                         <MenuItem value="Tops">Tops</MenuItem>
                     </Select>
             </FormControl>
-
+            <br></br>
+            <br></br>
             <FormGroup>
                 <FormLabel id="checkbox-group-label">Causes</FormLabel>
                 {causes.map((cause) => (
