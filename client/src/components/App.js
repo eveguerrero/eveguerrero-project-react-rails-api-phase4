@@ -7,6 +7,7 @@ import Home from "./Home";
 import ItemForm from "./ItemForm";
 import MollyItemForm from "./MollyItemForm";
 import ItemPage from "./ItemPage";
+import './App.css';
 
 
 import { isEmpty, difference} from "lodash";
