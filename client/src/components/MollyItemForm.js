@@ -16,13 +16,15 @@ import FormLabel from '@mui/material/FormLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export default function MollyItemForm ({ item, causes }) {
+export default function MollyItemForm ({ item, causes, onSubmitItem }) {
     // const item = {id: 2, name: 'Mid-top boot - black', price: 75, category: 'Shoes', image: "https://cdn.shopify.com/s/files/1/0752/4221/products/KPGM027BLK_p_1200x.jpg?v=1512594013", description: "these mid-tops feature a non-slip rubber sole and a synthetic nubuck upper that is both water and oil resistant. The custom insole provides extra heel and arch support,", gender: "Men", condition: "new", causes: [{id: 1, name: 'Vegan', description: 'Fashion item that does not contain any animal mate…ts were used during the entire production process'}, {id: 3, name: 'Made with recycled materials', description: 'Company that produces fashion items made from previously used materials'}, {id: 4, name: 'Made in the USA', description: 'Fashion item manufactured in the USA'}, {id: 5, name: 'Fair labor practices', description: 'Company that pays their employees 20% over the min… and offers a minimum of 14 days of PTOs per year'}, {id: 6, name: 'Charitable donations', description: 'Company that donates part of its profits and/or pr…o charitable causes as part of its business model'}, {id: 7, name: 'Women-owned', description: 'Company that is at least 70% owned by women'}, {id: 8, name: 'Minority-owned', description: 'Company that is at least 70% owned by African-Amer…, Hispanic-Latin American, Native American people'}]}
     
     const causesHard = [{id: 1, name: 'Vegan', description: 'Fashion item that does not contain any animal mate…ts were used during the entire production process'}, {id: 2, name: 'Low carbon footpring', description: 'Company that makes a demonstrable impact on loweri…greenhouse gas emitted from all of its activities'}, {id: 3, name: 'Made with recycled materials', description: 'Company that produces fashion items made from previously used materials'}, {id: 4, name: 'Made in the USA', description: 'Fashion item manufactured in the USA'}, {id: 5, name: 'Fair labor practices', description: 'Company that pays their employees 20% over the min… and offers a minimum of 14 days of PTOs per year'}, {id: 6, name: 'Charitable donations', description: 'Company that donates part of its profits and/or pr…o charitable causes as part of its business model'}, {id: 7, name: 'Women-owned', description: 'Company that is at least 70% owned by women'}, {id: 8, name: 'Minority-owned', description: 'Company that is at least 70% owned by African-Amer…, Hispanic-Latin American, Native American people'}]
     // const item= items[1]
     // console.log("items in form component:",items)
-    const oldCauses = item.causes.map((cause)=>cause.name)
+    //(customers.Hannah || {}).email
+    let oldCauses = [];
+    if (item.causes) oldCauses = item.causes.map((cause)=>cause.name);
 
     const [itemData, setItemData] = React.useState(item)
     const [stringCauses, setStringCauses] = React.useState(oldCauses)
@@ -59,6 +61,13 @@ export default function MollyItemForm ({ item, causes }) {
 //   }
     function handleSubmit(e) {
         e.preventDefault()
+        console.log("item in submit:", item)
+        console.log("causes in submit",causes)
+        const newCauseStrings = stringCauses.filter((cause) => !oldCauses.includes(cause))
+        const delCauseStrings = oldCauses.filter((cause) => !stringCauses.includes(cause))
+        const newCauses = newCauseStrings.map((name) => causes.find((cause) => cause.name === name) )
+        const delCauses = delCauseStrings.map((name) => causes.find((cause) => cause.name === name) )
+        onSubmitItem(itemData, newCauses, delCauses)
     }
 
     return (

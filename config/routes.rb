@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   
 
   resources :causes, only: [:index, :show]
-  resources :item_causes, only: [:index, :show]
-  resources :items, only: [:index, :show, :create, :destroy]
+  resources :item_causes, only: [:index, :show, :create, :destroy]
+  resources :items
 
   # Login / Logout Routes
   post '/login', to: 'sessions#create'

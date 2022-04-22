@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Button } from "../styles";
 
 function NavBar({ user, setUser }) {
-
+  console.log(window.location.pathname)
   const history = useHistory();
   
   function handleLogoutClick() {
@@ -48,13 +48,24 @@ function NavBar({ user, setUser }) {
           Logout
         </Button>} */}
 
-
+        {/* {(user && user.seller && window.location.pathname === "/sellerpage") ?
+        <Button as={Link} to="/itemform" exact>New Item</Button> : 
+        (user && user.seller) ? 
+        <Button as={Link} to="/sellerpage">Seller Account</Button>
+        : null
+        }
+        {!user ? 
+        <Button as={Link} to="/login" exact>Login</Button> 
+        :  
+        <Button variant="outline" onClick={handleLogoutClick}>Logout</Button>
+        } */}
         {!user ? 
         <Button as={Link} to="/login" exact>Login</Button> 
         :
         (user && user.seller) ?
         <>
-        <Button as={Link} to="/itemform">Add New Item</Button>
+        <Button as={Link} to="/itemform" exact>New Item</Button>
+        <Button as={Link} to="/sellerpage">Seller Account</Button>
           <Button variant="outline" onClick={handleLogoutClick}>
           Logout
           </Button>
