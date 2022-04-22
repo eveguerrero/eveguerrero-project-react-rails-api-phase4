@@ -4,6 +4,7 @@ import styled from "styled-components";
 // import Button from "@mui/material/Button";
 import { Button } from "../styles";
 
+
 function NavBar({ user, setUser, setItemToEdit }) {
   console.log(window.location.pathname)
   const history = useHistory();
@@ -92,9 +93,10 @@ const Wrapper = styled.header`
 `;
 
 const Logo = styled.h1`
-  font-family: "Permanent Marker", cursive;
-  font-size: 3rem;
-  color: deeppink;
+  font-family: 'Tapestry', cursive;
+  font-weight: lighter;
+  font-size: 4rem;
+  color: royalBlue;
   margin: 0;
   line-height: 1;
 

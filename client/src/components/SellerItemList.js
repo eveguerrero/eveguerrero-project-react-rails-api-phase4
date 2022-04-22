@@ -11,7 +11,6 @@ export default function SellerItemList({sellerItems, setItemToEdit}) {
   return (
     <ImageList sx={{ width: 1000, height: 800 }} cols={4}>
       <ImageListItem key="Subheader" cols={4}>
-        <ListSubheader component="div">Ethical Clothing Items</ListSubheader>
       </ImageListItem>
       {sellerItems.map((itemToDisplay) => (
         <SellerItem key={itemToDisplay.id} itemToDisplay={itemToDisplay} setItemToEdit={setItemToEdit}></SellerItem>
