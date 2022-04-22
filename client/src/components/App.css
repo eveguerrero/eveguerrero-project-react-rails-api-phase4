@@ -39,8 +39,9 @@
 }
 
 .item_page {
-  
-  
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;
   align-items: center;
   text-align: center;
  background-color: aquamarine;
