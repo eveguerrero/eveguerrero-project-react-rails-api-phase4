@@ -126,7 +126,7 @@ function App() {
   const sellerItems = items
   .filter(item => user && item.user_id === user.id)
   .filter(item => selectedCategory === "All" || item.category === selectedCategory)
-  .filter(item => selectedGender === "" || item.gender === selectedGender)
+  .filter(item => selectedGender === "All" || item.gender === selectedGender)
   .filter(item => isEmpty(selectedCauses) || isEmpty(difference(selectedCauses, item.causes.map(cause => cause.name))))
 
   return (
