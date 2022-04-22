@@ -14,7 +14,8 @@ function ItemPage() {
   }
 
   const data = useParams();
-  console.log(data)
+  console.log("params:",data)
+  console.log("windows",window.location.pathname)
   useEffect(() => {
     LoadItem(data.id);
   }, [data]);

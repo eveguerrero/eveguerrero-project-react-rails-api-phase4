@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import NavBar from "./NavBar";
 import Login from "./Login";
 import ItemList from "./ItemList";
@@ -22,6 +22,9 @@ function App() {
   const [selectedCauses, setSelectedCauses] = useState([])
   const [causes, setCauses] = useState([])
   const [itemToEdit, setItemToEdit] = useState({})
+  const [errors, setErrors] = useState([])
+
+  const history = useHistory()
 
   // console.log(selectedCauses)
 
@@ -56,6 +59,53 @@ function App() {
   }, []);
 
   // if (!user) return <Login onLogin={setUser} />;
+  function onSubmitItem( itemToSubmit, newCauses=[], delCauses=[] ) {
+    if (itemToSubmit.id) {
+      fetch(`/items/${itemToSubmit.id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(itemToSubmit)
+      }).then((r) => {
+        if (r.ok) {
+          const updatedItems = items.map((item)=> {
+            if (item.id===itemToSubmit.id) return itemToSubmit;
+            return item;
+          });
+          
+          setItemToEdit({});
+          setItems(updatedItems);
+          history.push("/sellerpage")
+        } else {
+          r.json().then((err) => setErrors(err.errors));
+        }
+      })
+    } else {
+      itemToSubmit.user_id = user.id;
+      fetch(`/items`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(itemToSubmit)
+      }).then((r) => {
+        if (r.ok) {
+          console.log("r:", r)
+          r.json().then((newItem) => {
+          const updatedItems = [...items, newItem]
+          console.log(updatedItems)
+          setItemToEdit({});
+          setItems(updatedItems);
+          history.push("/sellerpage")
+          })
+        } else {
+          r.json().then((err) => setErrors(err.errors));
+        }
+      })
+
+    }
+  }
 
   function onCategoryChange(category) {
     setSelectedCategory(category)
@@ -101,7 +151,7 @@ function App() {
         <main>
           <Switch>
             <Route path="/itemform">
-              <MollyItemForm item={itemToEdit} setItemToEdit={setItemToEdit} causes={causes}/> 
+              <MollyItemForm item={itemToEdit} setItemToEdit={setItemToEdit} errors={errors} causes={causes} onSubmitItem={onSubmitItem}/> 
             </Route>
             <Route path="/items/:id" >
               <ItemPage />
