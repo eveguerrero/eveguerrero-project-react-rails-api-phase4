@@ -47,4 +47,13 @@
  background-color: aquamarine;
 }
 
+.home_link {
+  align-items: right;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  border-radius: 0.5rem;padding: 0.5rem;
+  color: pink;
+  background-color: pink;
+}
+
 

@@ -21,7 +21,10 @@ function ItemPage() {
   }, [data]);
  
   return (
-   
+    <>
+    <Link to="/" className="home_link">
+    <button>Home</button>
+    </Link>
 <div className="item_page">
 
       <h1>{item.name}</h1>
@@ -35,7 +38,7 @@ function ItemPage() {
    
     
     </div>
-    
+    </>
   )
 }
 
