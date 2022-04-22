@@ -14,7 +14,7 @@ import FormLabel from '@mui/material/FormLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 
-export default function MollyItemForm ({ item, causes, onSubmitItem, onDeleteItem }) {
+export default function MollyItemForm ({ item, causes, user, onSubmitItem, onDeleteItem, setErrors }) {
     //(customers.Hannah || {}).email
     console.log("item in form:",item)
     let oldCauses = [];
@@ -52,17 +52,119 @@ export default function MollyItemForm ({ item, causes, onSubmitItem, onDeleteIte
           }).then((r) => {
             if (r.ok) {
                 onDeleteItem(item);
-            }
+            } else {
+                r.json().then((err) => setErrors(err.errors));
+              }
           });
+    }
+
+    function addNewItemCauses(newCauses,itemData) {
+        newCauses.forEach((cause)=>{
+            
+            console.log("new caauses",cause)
+            fetch(`/item_causes`, {
+                method: "POST",
+                headers: {
+                "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    "cause_id": cause.id,
+                    "item_id": itemData.id
+                })
+            }).then((r) => {
+                if (r.ok) {
+                console.log("r:", r)
+                r.json().then((item) => {
+                    console.log("added causes item",item)
+                    setItemData(item)
+                })
+                } else {
+                r.json().then((err) => setErrors(err.errors));
+                }
+            })
+        })
+    }
+
+    function delOldItemCauses(delCauses,itemData) {
+        delCauses.forEach((cause)=>{
+            console.log("old causes",cause)
+            fetch(`/item_causes/${cause.id}/${itemData.id}`, {
+                method: "DELETE",
+              }).then((r) => {
+                if (r.ok) {
+                    r.json().then((item) => {
+                        console.log("item in delete",item)
+                        setItemData(item)
+                    })
+                } else {
+                    r.json().then((err) => setErrors(err.errors));
+                  }
+              });
+        })
+    }
+
+    function patchItem(itemData,newCauses,delCauses) {
+        fetch(`/items/${itemData.id}`, {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(itemData)
+        }).then((r) => {
+            if (r.ok) {
+                r.json().then((newItem) => {
+                    setItemData(newItem)
+                    if (newCauses.length > 0) {
+                        addNewItemCauses(newCauses,itemData)
+                    }
+                    if (delCauses.length > 0) {
+                        delOldItemCauses(delCauses,itemData)
+                    }
+                })
+
+            } else {
+                r.json().then((err) => setErrors(err.errors));
+                }
+        });
+    }
+    function postItem(itemData,newCauses,delCauses) {
+        itemData.user_id = user.id;
+        fetch(`/items`, {
+            method: "POST",
+            headers: {
+            "Content-Type": "application/json",
+            },
+            body: JSON.stringify(itemData)
+        }).then((r) => {
+            if (r.ok) {
+            console.log("r:", r)
+            r.json().then((newItem) => {
+                setItemData(newItem)
+                if (newCauses.length > 0) {
+                    addNewItemCauses(newCauses,newItem)
+                }
+            })
+            } else {
+            r.json().then((err) => setErrors(err.errors));
+            }
+        })
     }
 
     function handleSubmit(e) {
         e.preventDefault()
+        let actionVerb = ""
         const newCauseStrings = stringCauses.filter((cause) => !oldCauses.includes(cause))
         const delCauseStrings = oldCauses.filter((cause) => !stringCauses.includes(cause))
         const newCauses = newCauseStrings.map((name) => causes.find((cause) => cause.name === name) )
         const delCauses = delCauseStrings.map((name) => causes.find((cause) => cause.name === name) )
-        onSubmitItem(itemData, newCauses, delCauses)
+        if (itemData.id) {
+            actionVerb="patch"
+            patchItem(itemData,newCauses,delCauses)
+        } else {
+            actionVerb="post"
+            postItem(itemData,newCauses,delCauses)
+        }
+        onSubmitItem(itemData,actionVerb)
     }
 
     return (

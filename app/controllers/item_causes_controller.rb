@@ -10,12 +10,14 @@ class ItemCausesController < ApplicationController
 
     def create
         item_cause = ItemCause.create!(item_causes_params)
-        render json: item, status: :created
+        render json: item_cause.item, status: :created
     end
 
     def destroy
-        item_cause = ItemCause.find(params[:id])
-        head :no_content
+        item_cause = ItemCause.find_by(item_id: params[:item_id],cause_id: params[:cause_id])
+        item = item_cause.item
+        item_cause.destroy
+        render json: item, status: :ok
     end
 
     private

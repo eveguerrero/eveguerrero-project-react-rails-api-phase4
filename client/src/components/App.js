@@ -67,53 +67,66 @@ function App() {
   }
 
   // if (!user) return <Login onLogin={setUser} />;
-  function onSubmitItem( itemToSubmit, newCauses=[], delCauses=[] ) {
-    if (itemToSubmit.id) {
-      fetch(`/items/${itemToSubmit.id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(itemToSubmit)
-      }).then((r) => {
-        if (r.ok) {
-          const updatedItems = items.map((item)=> {
-            if (item.id===itemToSubmit.id) return itemToSubmit;
-            return item;
-          });
-          
-          setItemToEdit({});
-          setItems(updatedItems);
-          history.push("/sellerpage")
-        } else {
-          r.json().then((err) => setErrors(err.errors));
-        }
-      })
+  function onSubmitItem( itemToSubmit, actionVerb ) {
+    if (actionVerb==="patch") {
+      const updatedItems = items.map((item)=> {
+        if (item.id===itemToSubmit.id) return itemToSubmit;
+        return item;
+      });
+      setItems(updatedItems);
     } else {
-      itemToSubmit.user_id = user.id;
-      fetch(`/items`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(itemToSubmit)
-      }).then((r) => {
-        if (r.ok) {
-          console.log("r:", r)
-          r.json().then((newItem) => {
-          const updatedItems = [...items, newItem]
-          console.log(updatedItems)
-          setItemToEdit({});
-          setItems(updatedItems);
-          history.push("/sellerpage")
-          })
-        } else {
-          r.json().then((err) => setErrors(err.errors));
-        }
-      })
-
-    }
+      const updatedItems = [...items, itemToSubmit];
+      setItems(updatedItems);
+    }     
+    setItemToEdit({});
+    history.push("/sellerpage")
   }
+    // if (itemToSubmit.id) {
+    //   fetch(`/items/${itemToSubmit.id}`, {
+    //     method: "PATCH",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(itemToSubmit)
+    //   }).then((r) => {
+    //     if (r.ok) {
+    //       const updatedItems = items.map((item)=> {
+    //         if (item.id===itemToSubmit.id) return itemToSubmit;
+    //         return item;
+    //       });
+          
+    //       setItemToEdit({});
+    //       setItems(updatedItems);
+    //       history.push("/sellerpage")
+    //     } else {
+    //       r.json().then((err) => setErrors(err.errors));
+    //     }
+    //   })
+    // } else {
+    //   itemToSubmit.user_id = user.id;
+    //   fetch(`/items`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify(itemToSubmit)
+    //   }).then((r) => {
+    //     if (r.ok) {
+    //       console.log("r:", r)
+    //       r.json().then((newItem) => {
+    //       const updatedItems = [...items, newItem]
+    //       console.log(updatedItems)
+    //       setItemToEdit({});
+    //       setItems(updatedItems);
+    //       history.push("/sellerpage")
+    //       })
+    //     } else {
+    //       r.json().then((err) => setErrors(err.errors));
+    //     }
+    //   })
+
+    // }
+  // }
 
   function onCategoryChange(category) {
     setSelectedCategory(category)
@@ -161,9 +174,11 @@ function App() {
             <Route path="/itemform">
               <MollyItemForm 
                 item={itemToEdit} 
-                setItemToEdit={setItemToEdit} 
+                setItemToEdit={setItemToEdit}
+                setErrors={setErrors} 
                 errors={errors} 
                 causes={causes} 
+                user={user}
                 onDeleteItem={onDeleteItem} 
                 onSubmitItem={onSubmitItem}
                 /> 
