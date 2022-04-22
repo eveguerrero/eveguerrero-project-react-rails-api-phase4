@@ -4,7 +4,7 @@ import styled from "styled-components";
 // import Button from "@mui/material/Button";
 import { Button } from "../styles";
 
-function NavBar({ user, setUser }) {
+function NavBar({ user, setUser, setItemToEdit }) {
   console.log(window.location.pathname)
   const history = useHistory();
   
@@ -15,6 +15,11 @@ function NavBar({ user, setUser }) {
         history.push("/")
       }
     });
+  }
+
+  function handleNewItemClick() {
+    setItemToEdit({})
+    history.push("/itemform")
   }
 
   return (
@@ -64,7 +69,8 @@ function NavBar({ user, setUser }) {
         :
         (user && user.seller) ?
         <>
-        <Button as={Link} to="/itemform" exact>New Item</Button>
+        {/* <Button as={Link} to="/itemform" exact>New Item</Button> */}
+        <Button onClick={handleNewItemClick}>New Item</Button>
         <Button as={Link} to="/sellerpage">Seller Account</Button>
           <Button variant="outline" onClick={handleLogoutClick}>
           Logout
