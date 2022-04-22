@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import { Button, Error, Input, FormField, Label, Textarea } from "../styles";
+import InputLabel from '@mui/material/InputLabel';
+import { useHistory } from "react-router-dom";
 
 function SignUpForm({ onLogin }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
-  const [seller, setSeller] = useState(false);
+  const [sellerTrue, setSellerTrue] = useState(false);
+  const [sellerFalse, setSellerFalse] = useState(true);
   const [errors, setErrors] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [seller, setSeller] = useState(false)
+  
+  const history = useHistory();
+
+  function handleSellerTrue() {
+    setSellerTrue(!sellerTrue)
+    setSeller(!seller)
+}
+
+  function handleSellerFalse() {
+    setSellerFalse(!setSellerFalse)
+    setSeller(!seller)
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -28,6 +44,8 @@ function SignUpForm({ onLogin }) {
       setIsLoading(false);
       if (r.ok) {
         r.json().then((user) => onLogin(user));
+        if (seller) return history.push("/sellerpage")
+        else return history.push("/")
       } else {
         r.json().then((err) => setErrors(err.errors));
       }
@@ -67,13 +85,23 @@ function SignUpForm({ onLogin }) {
         />
       </FormField>
       <FormField>
-        <Label htmlFor="seller">Seller</Label>
-        <Input
-          type="checkbox"
-          id="seller"
-          value={seller}
-          onChange={(e) => setSeller(e.target.value)}
-        />
+        <InputLabel id="select-label">Are you a seller?</InputLabel>
+        <div>
+            <input
+            type="radio"
+            value={sellerTrue}
+            checked={seller === true}
+            onClick={handleSellerTrue}
+            /> yes
+        </div>
+        <div>
+            <input
+            type="radio"
+            value={sellerFalse}
+            checked={seller === false}
+            onClick={handleSellerFalse}
+            /> no
+        </div>
       </FormField>
       <FormField>
         <Button type="submit">{isLoading ? "Loading..." : "Sign Up"}</Button>
