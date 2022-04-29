@@ -5,7 +5,7 @@ function ItemPage() {
     const [item, setItem] = useState([])
 
   function LoadItem(id) {
-    fetch(`http://localhost:3000/items/${id}`)
+    fetch(`https://save-the-amazon.herokuapp.com/items/${id}`)
       .then(r => r.json())
       .then(item => {
           console.log(item)
